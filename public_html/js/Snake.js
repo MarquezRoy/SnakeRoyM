@@ -28,3 +28,15 @@ function gameDraw() {
    context.fillStyle =  "rgb(108, 245, 181)";
    context.fillRect(0, 0, screenWidth, screenHeight);
 }
+
+function snakeInitialize() {
+    snake = [];
+}
+
+function snakeDraw() {
+    
+}
+
+function snakeUpdate() {
+    
+}
