@@ -1,17 +1,27 @@
+/*
+ * My variables
+ */
+
 var snake;
 var snakeLength;
 var snakeSize;
+
+var food;
 
 var context;
 var screenWidth;
 var screenHeight;
 
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ * 
+ *%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ */
+
 gameInitialize();
 snakeInitialize();
-gameDraw();
-snakeDraw();
-snakeUpdate();
-snakeDraw();
+foodInitialize();
+setInterval(gameLoop, 1000/30);
+
 
 function gameInitialize() {
     var canvas = document.getElementById("game-screen");
@@ -25,7 +35,10 @@ function gameInitialize() {
 }
     
 function gameLoop() {
-    
+    gameDraw();
+    snakeUpdate();
+    snakeDraw();
+    foodDraw();
 }
 
 function gameDraw() {
@@ -63,4 +76,25 @@ function snakeUpdate() {
     snakeTail.x = snakeHeadX;
     snakeTail.y = snakeHeadY;
     snake.unshift(snakeTail);
+}
+
+function foodInitialize() {
+    food = {
+        x: 0,
+        y: 0
+    };
+    setFoodPosition();
+}
+
+function foodDraw() {
+    context.fillStyle = "Brown";
+    context.fillRect(food.x, food.y, snakeSize, snakeSize);
+}
+
+function setFoodPosition() {
+    var randomX = Math.floor(Math.random() * screenWidth);
+    var randomY = Math.floor(Math.random() * screenHeight);
+    
+    food.x = randomX;
+    food.y = randomY;
 }
