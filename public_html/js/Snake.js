@@ -74,16 +74,26 @@ function snakeUpdate() {
     if(snakeDirection == "down") {
         snakeHeadY++;
     }
-    else {
+    else if(snakeDirection == "right") {
         snakeHeadX++;
     }
-    
+    else if(snakeDirection == "left") {
+        snakeHeadX--;
+    }
+    else if(snakeDirection == "up") {
+        snakeHeadY--;
+    }
     var snakeTail = snake.pop();
     snakeTail.x = snakeHeadX;
     snakeTail.y = snakeHeadY;
     snake.unshift(snakeTail);
 }
-
+/*
+ * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ * Food functions
+ * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ */ 
+ 
 function foodInitialize() {
     food = {
         x: 0,
@@ -94,7 +104,7 @@ function foodInitialize() {
 
 function foodDraw() {
     context.fillStyle = "rgb(255, 0, 0)";
-    context.fillRect(food.x, food.y, snakeSize, snakeSize);
+    context.fillRect(food.x * snakeSize, food.y *snakeSize, snakeSize, snakeSize);
 }
 /*
  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -105,10 +115,30 @@ function setFoodPosition() {
     var randomX = Math.floor(Math.random() * screenWidth);
     var randomY = Math.floor(Math.random() * screenHeight);
     
-    food.x = randomX;
-    food.y = randomY;
+    food.x = Math.floor (randomX / snakeSize);
+    food.y = Math.floor (randomY / snakeSize);
 }
+
+/*
+ * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ * Input functions
+ * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ */
+
 
 function keyboardHandler(event) {
     console.log(event);
+    
+    if(event.keyCode == "68" && snakeDirection != "left") {
+        snakeDirection = "right";
+    }
+    else if(event.keyCode == "83" && snakeDirection != "up") {
+        snakeDirection = "down"
+    }
+    else if(event.keyCode == "65" && snakeDirection != "right") {
+        snakeDirection = "left"
+    }
+    else if(event.keyCode == "87" && snakeDirection != "down") {
+        snakeDirection = "up"
+    }
 }
